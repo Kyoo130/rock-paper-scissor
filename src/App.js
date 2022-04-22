@@ -1,5 +1,5 @@
-import './App.css';
-import {useState} from "react";
+import "./App.css";
+import { useState } from "react";
 import Box from "./components/Box";
 
 const choice = {
@@ -14,35 +14,53 @@ const choice = {
   paper: {
     name: "Paper",
     img: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbmjB2s%2FbtqXHhp6kpG%2FTH14W4U612SxKo9uuR2sB0%2Fimg.png",
-  }
-}
+  },
+};
 
 function App() {
-
   const [userSelect, setUserSelect] = useState(null);
+  const [computerSelect, setComputerSelect] = useState(null);
 
   const play = (userChoice) => {
-    setUserSelect(choice[userChoice])
-  }
+    setUserSelect(choice[userChoice]);
+    let computerChoice = randomChoice();
+    setComputerSelect(computerChoice);
+  };
+
+  const randomChoice = () => {
+    let itemArray = Object.keys(choice); //객체에 키값만 뽑아서 "Array"로 만들어 주는 함수
+    let randomItem = Math.floor(Math.random() * itemArray.length);
+    let final = itemArray[randomItem];
+    return choice[final];
+  };
 
   return (
     <div>
       <div className="main">
-        <Box title="You" item={userSelect}/>
-        {/*<Box title="Computer"/>*/}
+        <Box title="You" item={userSelect} />
+        <Box title="Computer" item={computerSelect} />
       </div>
       <div className="main">
-        <button onClick={() => {
-          play("scissors")
-        }}>가위
+        <button
+          onClick={() => {
+            play("scissors");
+          }}
+        >
+          가위
         </button>
-        <button onClick={() => {
-          play("rock")
-        }}>바위
+        <button
+          onClick={() => {
+            play("rock");
+          }}
+        >
+          바위
         </button>
-        <button onClick={() => {
-          play("paper")
-        }}>보
+        <button
+          onClick={() => {
+            play("paper");
+          }}
+        >
+          보
         </button>
       </div>
     </div>
